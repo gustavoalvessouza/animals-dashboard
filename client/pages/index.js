@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 
 import { Logo } from "../components/Logo";
 
@@ -9,7 +10,7 @@ import { authInputs } from "../helpers/inputs/auth";
 import { styles } from "../styles";
 
 export default function Home() {
-  const [authForm, setAuthForm] = React.useState({});
+  const [authForm, setAuthForm] = useState({});
 
   const handleFormFields = (input, value) => {
     const newFormField = { [input.label]: value };
@@ -40,14 +41,16 @@ export default function Home() {
           />
         ))}
 
-        <Button
-          variant="contained"
-          color="success"
-          size="large"
-          disableElevation
-        >
-          Entrar
-        </Button>
+        <Link href="/animals">
+          <Button
+            variant="contained"
+            color="success"
+            size="large"
+            disableElevation
+          >
+            Entrar
+          </Button>
+        </Link>
       </Box>
     </Container>
   );
