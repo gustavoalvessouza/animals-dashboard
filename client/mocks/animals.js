@@ -1,5 +1,1 @@
-export const animalsMock = [
-  { name: "Vaca" },
-  { name: "Boi" },
-  { name: "Peixe" },
-];
+export const animalsMock = [{ name: "Cachorro", id: "4" }];

@@ -1,27 +1,37 @@
 import React from "react";
+import Head from "next/head";
 
 import { AnimalCard } from "../components/AnimalCard";
 
-import { Container, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 
 import { animalsMock } from "../mocks/animals";
 
 const Animals = () => {
   return (
-    <Container maxWidth="lg">
-      <Typography
-        variant="h4"
-        component="h4"
-        fontWeight="medium"
-        style={{ marginBottom: 20, marginTop: 20 }}
-      >
-        Meus Animais
-      </Typography>
+    <>
+      <Head>
+        <title>Meus Animais</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
 
-      {animalsMock.map((animal) => (
-        <AnimalCard animal={animal} />
-      ))}
-    </Container>
+      <Container maxWidth="lg">
+        <Typography
+          variant="h4"
+          component="h4"
+          fontWeight="medium"
+          style={{ marginBottom: 30, marginTop: 30 }}
+        >
+          Meus Animais
+        </Typography>
+
+        <Grid container spacing={3}>
+          {animalsMock.map((animal) => (
+            <AnimalCard animal={animal} />
+          ))}
+        </Grid>
+      </Container>
+    </>
   );
 };
 
