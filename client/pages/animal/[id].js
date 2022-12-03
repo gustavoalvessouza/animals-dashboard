@@ -35,7 +35,7 @@ const Animal = () => {
           fontWeight="medium"
           style={{ ...textStyle }}
         >
-          Boi
+          Cachorro
         </Typography>
 
         <Typography
@@ -142,7 +142,7 @@ const style = {
 };
 
 const imageStyle = {
-  borderRadius: 8,
+  borderRadius: 5,
 };
 
 const textStyle = {
@@ -158,7 +158,7 @@ const historyStlye = {
   background: "#FAFAFA",
   border: "1px #EEEEEE solid",
   padding: 15,
-  borderRadius: 8,
+  borderRadius: 5,
   marginTop: 10,
   width: "100%",
   display: "flex",

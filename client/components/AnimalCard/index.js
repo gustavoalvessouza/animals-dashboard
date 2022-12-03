@@ -35,5 +35,5 @@ export const AnimalCard = ({ animal }) => {
 };
 
 const imageStyle = {
-  borderRadius: 8,
+  borderRadius: 5,
 };
