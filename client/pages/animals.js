@@ -7,109 +7,123 @@ import { Container, Grid, Typography, Divider } from "@mui/material";
 
 import { animalsMock } from "../mocks/animals";
 
-const animalLocations = [
-  { location: "Pasto", value: 1 },
-  { location: "Comida", value: 3 },
-  { location: "Vascina", value: 1 },
-];
+const Animals = ({ AnimalsPerLocal, BreedsCount }) => {
+	return (
+		<>
+			<Head>
+				<title>Meus Animais</title>
+				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+			</Head>
 
-const animalActions = [
-  { action: "Comendo", value: 1 },
-  { action: "Vascinando", value: 3 },
-];
+			<Container maxWidth="lg">
+				<Typography
+					variant="h4"
+					component="h4"
+					fontWeight="medium"
+					style={{ marginBottom: 30, marginTop: 30 }}
+				>
+					Dashboard
+				</Typography>
 
-const Animals = () => {
-  return (
-    <>
-      <Head>
-        <title>Meus Animais</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+				<Typography
+					variant="h5"
+					component="h5"
+					fontWeight="medium"
+					style={{ marginTop: 30 }}
+				>
+					Animais por local
+				</Typography>
 
-      <Container maxWidth="lg">
-        <Typography
-          variant="h4"
-          component="h4"
-          fontWeight="medium"
-          style={{ marginBottom: 30, marginTop: 30 }}
-        >
-          Dashboard
-        </Typography>
+				<div style={{ ...styles.animalLocationContainer }}>
+					{AnimalsPerLocal &&
+						Object.keys(AnimalsPerLocal).map((local) => (
+							<Grid item style={{ ...styles.animalLocationCard }}>
+								{local}
+								<small style={{ fontSize: 40 }}>{AnimalsPerLocal[local]}</small>
+							</Grid>
+						))}
+				</div>
 
-        <Typography
-          variant="h5"
-          component="h5"
-          fontWeight="medium"
-          style={{ marginTop: 30 }}
-        >
-          Animais por local
-        </Typography>
+				<Typography
+					variant="h5"
+					component="h5"
+					fontWeight="medium"
+					style={{ marginTop: 30 }}
+				>
+					Animais executando ação
+				</Typography>
 
-        <div style={{ ...styles.animalLocationContainer }}>
-          {animalLocations.map((a) => (
-            <Grid item style={{ ...styles.animalLocationCard }}>
-              {a?.location}
-              <small style={{ fontSize: 40 }}>{a?.value}</small>
-            </Grid>
-          ))}
-        </div>
+				<div style={{ ...styles.animalLocationContainer }}>
+					{BreedsCount &&
+						Object.keys(BreedsCount).map((breed) => (
+							<Grid item style={{ ...styles.animalLocationCard }}>
+								{breed}
+								<small style={{ fontSize: 40 }}>{BreedsCount[breed]}</small>
+							</Grid>
+						))}
+				</div>
 
-        <Typography
-          variant="h5"
-          component="h5"
-          fontWeight="medium"
-          style={{ marginTop: 30 }}
-        >
-          Animais executando ação
-        </Typography>
+				<Divider style={{ marginTop: 60, marginBottom: 40 }} />
 
-        <div style={{ ...styles.animalLocationContainer }}>
-          {animalActions.map((a) => (
-            <Grid item style={{ ...styles.animalLocationCard }}>
-              {a?.action}
-              <small style={{ fontSize: 40 }}>{a?.value}</small>
-            </Grid>
-          ))}
-        </div>
+				<Typography
+					variant="h4"
+					component="h4"
+					fontWeight="medium"
+					style={{ marginBottom: 30, marginTop: 30 }}
+				>
+					Meus Animais
+				</Typography>
 
-        <Divider style={{ marginTop: 60, marginBottom: 40 }} />
-
-        <Typography
-          variant="h4"
-          component="h4"
-          fontWeight="medium"
-          style={{ marginBottom: 30, marginTop: 30 }}
-        >
-          Meus Animais
-        </Typography>
-
-        <Grid container spacing={3}>
-          {animalsMock.map((animal) => (
-            <AnimalCard animal={animal} />
-          ))}
-        </Grid>
-      </Container>
-    </>
-  );
+				<Grid container spacing={3}>
+					{animalsMock.map((animal) => (
+						<AnimalCard animal={animal} />
+					))}
+				</Grid>
+			</Container>
+		</>
+	);
 };
 
 const styles = {
-  animalLocationContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  animalLocationCard: {
-    background: "#FAFAFA",
-    border: "1px #EEEEEE solid",
-    padding: 15,
-    borderRadius: 5,
-    marginTop: 10,
-    marginRight: 5,
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
+	animalLocationContainer: {
+		display: "flex",
+		justifyContent: "space-between",
+	},
+	animalLocationCard: {
+		background: "#FAFAFA",
+		border: "1px #EEEEEE solid",
+		padding: 15,
+		borderRadius: 5,
+		marginTop: 10,
+		marginRight: 5,
+		width: "100%",
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+	},
 };
+
+export async function getServerSideProps(context) {
+	return {
+		props: {
+			AnimalsPerLocal: {
+				Pasture: 5,
+				Food: 5,
+				Vaccine: 5,
+			},
+			AnimalWeightAVG: 320,
+			AnimalsTotal: 7,
+			BreedsCount: {
+				Jersey: 2,
+				Holandes: 2,
+				PardoSuico: 1,
+				Gir: 1,
+				Girolando: 1,
+				Guzera: 0,
+				Sindi: 0,
+			},
+		},
+	};
+}
 
 export default Animals;
