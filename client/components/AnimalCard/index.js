@@ -6,10 +6,10 @@ import { Typography, Grid } from "@mui/material";
 
 export const AnimalCard = ({ animal }) => {
   return (
-    <Link href={`/animal/${animal.id}`}>
+    <Link href={`/animal/${animal?.id}`}>
       <Grid item xs={3} style={{ cursor: "pointer" }}>
         <Image
-          src="/dog.png"
+          src={animal?.image}
           quality={100}
           width={1000}
           height={500}
@@ -23,11 +23,11 @@ export const AnimalCard = ({ animal }) => {
           color="#4B4B4B"
           style={{ marginTop: 10 }}
         >
-          {animal.name}
+          {animal?.Breed}
         </Typography>
 
         <Typography variant="small" component="small" color="#999999">
-          #{animal.id}
+          #{animal?.id}
         </Typography>
       </Grid>
     </Link>

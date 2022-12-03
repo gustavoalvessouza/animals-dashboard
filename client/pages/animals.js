@@ -1,13 +1,16 @@
 import React from "react";
 import Head from "next/head";
 
+import axios from "axios";
+
 import { AnimalCard } from "../components/AnimalCard";
 
 import { Container, Grid, Typography, Divider } from "@mui/material";
 
-import { animalsMock } from "../mocks/animals";
+const Animals = ({ data }) => {
+	const { animalsPerLocal: animalsPerLocalData, animalsList } = data;
+	const { AnimalsPerLocal, BreedsCount } = animalsPerLocalData;
 
-const Animals = ({ AnimalsPerLocal, BreedsCount }) => {
 	return (
 		<>
 			<Head>
@@ -75,9 +78,10 @@ const Animals = ({ AnimalsPerLocal, BreedsCount }) => {
 				</Typography>
 
 				<Grid container spacing={3}>
-					{animalsMock.map((animal) => (
-						<AnimalCard animal={animal} />
-					))}
+					{animalsList &&
+						animalsList.map((animal) => (
+							<AnimalCard animal={animal} key={animal?.id} />
+						))}
 				</Grid>
 			</Container>
 		</>
@@ -103,27 +107,43 @@ const styles = {
 	},
 };
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
+	const url = `http://localhost:8080/api/backoffice/animals/list`;
+
+	const response = await axios({ method: "get", url });
+
 	return {
-		props: {
-			AnimalsPerLocal: {
-				Pasture: 5,
-				Food: 5,
-				Vaccine: 5,
-			},
-			AnimalWeightAVG: 320,
-			AnimalsTotal: 7,
-			BreedsCount: {
-				Jersey: 2,
-				Holandes: 2,
-				PardoSuico: 1,
-				Gir: 1,
-				Girolando: 1,
-				Guzera: 0,
-				Sindi: 0,
-			},
-		},
+		props: { data: response?.data },
 	};
 }
+
+// animalsPerLocal: {
+// 	AnimalsPerLocal: {
+// 		Pasture: 5,
+// 		Food: 5,
+// 		Vaccine: 5,
+// 	},
+// 	AnimalWeightAVG: 320,
+// 	AnimalsTotal: 7,
+// 	BreedsCount: {
+// 		Jersey: 2,
+// 		Holandes: 2,
+// 		PardoSuico: 1,
+// 		Gir: 1,
+// 		Girolando: 1,
+// 		Guzera: 0,
+// 		Sindi: 0,
+// 	},
+// },
+// animalsList: [
+// 	{
+// 		id: "713b8d46-11ba-4c31-8a3c-8a83706e5754",
+// 		Breed: "Jersey",
+// 		Gender: "Macho",
+// 		weight: 350,
+// 		image:
+// 			"https://s2.glbimg.com/J4t2oY-w6f0jcnBHoapgvX9UARU=/0x0:695x394/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2019/b/Q/ibQsuaQRmo9YSNqAmoTw/vaca-oculos-realidade-1.jpg",
+// 	},
+// ],
 
 export default Animals;
