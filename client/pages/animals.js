@@ -7,10 +7,7 @@ import { AnimalCard } from "../components/AnimalCard";
 
 import { Container, Grid, Typography, Divider } from "@mui/material";
 
-const Animals = ({ data }) => {
-	const { animalsPerLocal: animalsPerLocalData, animalsList } = data;
-	const { AnimalsPerLocal, BreedsCount } = animalsPerLocalData;
-
+const Animals = (props) => {
 	return (
 		<>
 			<Head>
@@ -38,13 +35,17 @@ const Animals = ({ data }) => {
 				</Typography>
 
 				<div style={{ ...styles.animalLocationContainer }}>
-					{AnimalsPerLocal &&
-						Object.keys(AnimalsPerLocal).map((local) => (
-							<Grid item style={{ ...styles.animalLocationCard }}>
-								{local}
-								<small style={{ fontSize: 40 }}>{AnimalsPerLocal[local]}</small>
-							</Grid>
-						))}
+					{props?.data?.animalsPerLocal?.AnimalsPerLocal &&
+						Object.keys(props?.data?.animalsPerLocal?.AnimalsPerLocal).map(
+							(local) => (
+								<Grid item style={{ ...styles.animalLocationCard }}>
+									{local}
+									<small style={{ fontSize: 40 }}>
+										{AnimalsPerLocal[local]}
+									</small>
+								</Grid>
+							)
+						)}
 				</div>
 
 				<Typography
@@ -57,13 +58,15 @@ const Animals = ({ data }) => {
 				</Typography>
 
 				<div style={{ ...styles.animalLocationContainer }}>
-					{BreedsCount &&
-						Object.keys(BreedsCount).map((breed) => (
-							<Grid item style={{ ...styles.animalLocationCard }}>
-								{breed}
-								<small style={{ fontSize: 40 }}>{BreedsCount[breed]}</small>
-							</Grid>
-						))}
+					{props?.data?.animalsPerLocal?.BreedsCount &&
+						Object.keys(props?.data?.animalsPerLocal?.BreedsCount).map(
+							(breed) => (
+								<Grid item style={{ ...styles.animalLocationCard }}>
+									{breed}
+									<small style={{ fontSize: 40 }}>{BreedsCount[breed]}</small>
+								</Grid>
+							)
+						)}
 				</div>
 
 				<Divider style={{ marginTop: 60, marginBottom: 40 }} />
@@ -78,8 +81,8 @@ const Animals = ({ data }) => {
 				</Typography>
 
 				<Grid container spacing={3}>
-					{animalsList &&
-						animalsList.map((animal) => (
+					{props?.data?.animalsList &&
+						props?.data?.animalsList.map((animal) => (
 							<AnimalCard animal={animal} key={animal?.id} />
 						))}
 				</Grid>
